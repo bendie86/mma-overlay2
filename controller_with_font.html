@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fight Clock Controller</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+      padding: 40px;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+    }
+    input, select {
+      width: 300px;
+      padding: 8px;
+      font-size: 16px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 15px;
+      margin-right: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fight Clock Controller</h1>
+
+  <div class="section">
+    <label>Fighter Left Name</label>
+    <input id="fighterLeft" type="text" placeholder="e.g. McGregor">
+
+    <label>Fighter Left Flag (2-letter code)</label>
+    <input id="flagLeft" type="text" placeholder="e.g. ie">
+  </div>
+
+  <div class="section">
+    <label>Fighter Right Name</label>
+    <input id="fighterRight" type="text" placeholder="e.g. Diaz">
+
+    <label>Fighter Right Flag (2-letter code)</label>
+    <input id="flagRight" type="text" placeholder="e.g. us">
+  </div>
+
+  <div class="section">
+    <label>Total Rounds</label>
+    <select id="totalRounds">
+      <option value="3">3</option>
+      <option value="5">5</option>
+    </select>
+
+    <label>Current Round</label>
+    <select id="currentRound">
+      <option value="1">1</option><option value="2">2</option>
+      <option value="3">3</option><option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <label>Info Bar Text</label>
+    <input id="infoText" type="text" placeholder="e.g. Lightweight Title Bout">
+  </div>
+
+  <div class="section">
+    <label>Font Family</label>
+    <select id="fontFamily">
+      <option value="Arial, sans-serif">Arial</option>
+      <option value="Impact, sans-serif">Impact</option>
+      <option value="Verdana, sans-serif">Verdana</option>
+      <option value="'Courier New', monospace">Courier New</option>
+      <option value="'Times New Roman', serif">Times New Roman</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <button onclick="applyChanges()">Apply Changes</button>
+  </div>
+
+  <div class="section">
+    <label>Timer Controls</label><br>
+    <button onclick="sendCommand('start')">Start</button>
+    <button onclick="sendCommand('pause')">Pause</button>
+    <button onclick="resetTimer()">Reset (3:00)</button>
+  </div>
+
+  <script>
+    function sendCommand(cmd) {
+      localStorage.setItem("timerCommand", cmd);
+    }
+
+    function resetTimer() {
+      localStorage.setItem("timerCommand", "reset:180");
+    }
+
+    function applyChanges() {
+      localStorage.setItem("fighterLeft", document.getElementById("fighterLeft").value);
+      localStorage.setItem("fighterRight", document.getElementById("fighterRight").value);
+      localStorage.setItem("flagLeft", document.getElementById("flagLeft").value.toLowerCase());
+      localStorage.setItem("flagRight", document.getElementById("flagRight").value.toLowerCase());
+      localStorage.setItem("totalRounds", document.getElementById("totalRounds").value);
+      localStorage.setItem("currentRound", document.getElementById("currentRound").value);
+      localStorage.setItem("infoText", document.getElementById("infoText").value);
+      localStorage.setItem("fontFamily", document.getElementById("fontFamily").value);
+    }
+  </script>
+</body>
+</html>
